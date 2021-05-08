@@ -1,17 +1,19 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <div id="app">
+    <tabBar></tabBar>
+    <router-view />
+  </div>
 </template>
 
 <script>
-
+import tabBar from "./components/common/tabbar/TabBar.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-   
-  }
-}
+    tabBar,
+  },
+};
 </script>
 
 <style>
-@import "assets/css/base.css";
 </style>
