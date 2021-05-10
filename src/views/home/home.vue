@@ -6,6 +6,8 @@
     </nav-bar>
     <homeSwiper :banners="banners"/>
     <homeRecommend :recommends="recommends"/>
+    <homeFeatureView/>
+    <div class="palchor"></div>
   </div>
 </template>
 
@@ -15,6 +17,7 @@ import SwiperItem from "@/components/common/swiper/SwiperItem";
 import NavBar from "@/components/common/navbar/NavBar";
 import homeSwiper from "./childComps/homeSwiper";
 import homeRecommend from './childComps/homeRecommend'
+import homeFeatureView from './childComps/homeFeatureView'
 import { getHomeMultidata } from "@/network/home";
 export default {
   name: "home",
@@ -31,7 +34,8 @@ export default {
     Swiper,
     SwiperItem,
     homeSwiper,
-    homeRecommend
+    homeRecommend,
+    homeFeatureView
   },
   created() {
     getHomeMultidata().then(res => {
@@ -43,8 +47,19 @@ export default {
 };
 </script>
 <style  scoped>
+.home{
+  padding-top: 44px;
+}
 .home-nav {
   background-color: var(--color-tint);
   color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9;
+}
+.palchor{
+  height: 800px;
 }
 </style>
