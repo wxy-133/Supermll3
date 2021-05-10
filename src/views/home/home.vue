@@ -7,6 +7,7 @@
     <homeSwiper :banners="banners"/>
     <homeRecommend :recommends="recommends"/>
     <homeFeatureView/>
+    <tabBarControl class="tabbar-control" :titles="['流行','新款','精选']"/>
     <div class="palchor"></div>
   </div>
 </template>
@@ -15,6 +16,7 @@
 import Swiper from "@/components/common/swiper/Swiper";
 import SwiperItem from "@/components/common/swiper/SwiperItem";
 import NavBar from "@/components/common/navbar/NavBar";
+import tabBarControl from "@/components/content/tabBarControl/tabBarControl";
 import homeSwiper from "./childComps/homeSwiper";
 import homeRecommend from './childComps/homeRecommend'
 import homeFeatureView from './childComps/homeFeatureView'
@@ -33,6 +35,7 @@ export default {
     NavBar,
     Swiper,
     SwiperItem,
+    tabBarControl,
     homeSwiper,
     homeRecommend,
     homeFeatureView
@@ -61,5 +64,9 @@ export default {
 }
 .palchor{
   height: 800px;
+}
+.tabbar-control{
+  position: sticky;
+  top: 44px;
 }
 </style>
