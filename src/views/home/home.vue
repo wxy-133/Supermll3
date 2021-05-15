@@ -7,8 +7,10 @@
     <homeSwiper :banners="banners" />
     <homeRecommend :recommends="recommends" />
     <homeFeatureView />
-    <tabBarControl class="tabbar-control" :titles="['流行','新款','精选']" />
-    <GoodsLists :goods="goods['pop'].list"/>
+    <tabBarControl class="tabbar-control" 
+                  :titles="['流行','新款','精选']" 
+                  @tabClick="tabClick"/>
+    <GoodsLists :goods="goods[currentType].list"/>
   </div>
 </template>
 
@@ -33,7 +35,8 @@ export default {
         'pop': {page: 0, list: [] },
         'new': {page: 0, list: [] },
         'sell': {page: 0, list: [] }
-      }
+      },
+      currentType:'pop'
     };
   },
   computed: {},
@@ -56,6 +59,24 @@ export default {
     this.getHomeGoods('sell');
   },
   methods: {
+    //事件监听相关的方法
+    tabClick(index){
+       switch(index){
+         case 0:{
+           this.currentType='pop'
+           break
+         }
+         case 1:{
+           this.currentType='new'
+           break
+         }
+         case 2:{
+           this.currentType='sell'
+           break
+         }
+       }
+    },
+    //网络请求相关的方法
     getHomeMultidata() {
       getHomeMultidata().then(res => {
         // console.log(res);
@@ -93,5 +114,6 @@ export default {
 .tabbar-control {
   position: sticky;
   top: 44px;
+  z-index: 9;
 }
 </style>
