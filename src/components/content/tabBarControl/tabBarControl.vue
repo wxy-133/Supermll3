@@ -10,7 +10,6 @@
 
 <script>
 export default {
-  components: {},
   props: {
     titles: {
       type: Array,
