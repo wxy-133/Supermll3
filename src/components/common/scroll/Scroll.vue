@@ -53,6 +53,7 @@
           this.$emit('pullingUp')
          })
       }
+      // this.scroll.refresh();
     },
     methods: {
       scrollTo(x, y, time=300) {

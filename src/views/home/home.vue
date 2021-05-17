@@ -58,6 +58,10 @@ export default {
     GoodsLists,
     BackTop
   },
+  activated(){
+      //监听图片加载
+      this.$refs.scroll.refresh()
+    },
   created() {
     //请求轮播，推荐数据
     this.getHomeMultidata();
@@ -112,7 +116,9 @@ export default {
       })
     }
   },
-  mounted() {}
+  deactivated(){
+      this.$bus.$off('itemImageLoad')
+    },
 };
 </script>
 <style  scoped>
