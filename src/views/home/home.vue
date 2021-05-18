@@ -6,7 +6,9 @@
     </nav-bar>
     <Scroll class="content" ref="scorll" 
     :probe-type="3"
-     @scroll="contentScroll"   >
+     @scroll="contentScroll"
+     :pull-up-load="true"
+     @pullingUp="loadMore">
       <homeSwiper :banners="banners" />
       <homeRecommend :recommends="recommends" />
       <homeFeatureView />
@@ -29,6 +31,7 @@ import homeSwiper from "./childComps/homeSwiper";
 import homeRecommend from "./childComps/homeRecommend";
 import homeFeatureView from "./childComps/homeFeatureView";
 import { getHomeMultidata, getHomeGoods } from "@/network/home";
+import { debounce } from "../../common/util.js";
 export default {
   name: "home",
   components: {},
@@ -60,7 +63,7 @@ export default {
   },
   activated(){
       //监听图片加载
-     const refresh=this.debounce(this.$refs.scroll.refresh,500)
+     const refresh=debounce(this.$refs.scroll.refresh,500)
      refresh();
       // this.$refs.scroll.refresh()
     },
@@ -74,15 +77,6 @@ export default {
   },
   methods: {
     //事件监听相关的方法
-    debounce(func,delay){
-      let timer=null;
-      return function(...args){
-        if(timer) clearTimeout(timer)
-        timer=setTimeout(()=>{
-          func.apply(this,args)
-        },delay)
-      }
-    },
     tabClick(index) {
       switch (index) {
         case 0: {
@@ -123,7 +117,7 @@ export default {
         this.goods[type].list.push(...res.data.list);
         console.log(res.data);
         this.goods[type].page += 1;
-        // this.$refs.scorll.finishPullUp()
+        this.$refs.scorll.finishPullUp()
       })
     }
   },
