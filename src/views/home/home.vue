@@ -60,7 +60,9 @@ export default {
   },
   activated(){
       //监听图片加载
-      this.$refs.scroll.refresh()
+     const refresh=this.debounce(this.$refs.scroll.refresh,500)
+     refresh();
+      // this.$refs.scroll.refresh()
     },
   created() {
     //请求轮播，推荐数据
@@ -72,6 +74,15 @@ export default {
   },
   methods: {
     //事件监听相关的方法
+    debounce(func,delay){
+      let timer=null;
+      return function(...args){
+        if(timer) clearTimeout(timer)
+        timer=setTimeout(()=>{
+          func.apply(this,args)
+        },delay)
+      }
+    },
     tabClick(index) {
       switch (index) {
         case 0: {

@@ -63,3 +63,5 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
    3. 所以，计算出来的是错误的
    4. 后来图片加载有新高度，scrollHeight没有更新，所以滚动出现问题
    5. 监听每一张图片加载完成 imageLoad：function 调用scroll的refresh $bus（非父子组件）传递事件需用事件总线
+   6. bus->Vue.prototype.$bus=new Vue()->this.$bus.$emit('name')->this.$bus.on('name',参数)
+   7. 防抖
