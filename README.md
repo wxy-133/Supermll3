@@ -65,3 +65,6 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
    5. 监听每一张图片加载完成 imageLoad：function 调用scroll的refresh $bus（非父子组件）传递事件需用事件总线
    6. bus->Vue.prototype.$bus=new Vue()->this.$bus.$emit('name')->this.$bus.on('name',参数)
    7. 防抖
+## tabconrol的吸顶效果
+   1. 了解滚动到多少有效果 用 offsetTop ,$el获取组件的元素，需监听图片加载完成后加载
+   2. 监听滚动，动态改变样式 
