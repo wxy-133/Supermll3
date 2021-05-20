@@ -9,6 +9,8 @@ const Cart = () =>
     import ('@/views/cart/cart')
 const Profile = () =>
     import ('@/views/profile/profile')
+const Detail = () =>
+    import ('@/views/detail/detail')
 export default new Router({
     routes: [{
             path: '/home',
@@ -29,6 +31,11 @@ export default new Router({
             path: '/profile',
             name: 'profile',
             component: Profile
+        },
+        {
+            path: '/detail/:iid',
+            name: 'detail',
+            component: Detail
         }
     ],
     mode: 'history',

@@ -74,15 +74,15 @@ export default {
   },
   activated() {
     //监听图片加载
-    console.log(this.$refs.scroll)
-    console.log(this.$refs.tabControl1)
+
     const refreshs = debounce(this.$refs.scroll.refresh(), 500);
     refreshs();
     // this.$refs.scroll.refresh()
-    this.$refs.scroll.scrollTop(0,this.saveY,0)
+    this.$refs.scroll.scrollTo(0,this.saveY,0)
   },
   created() {
     //请求轮播，推荐数据
+     console.log(this.$refs.scroll)
     this.getHomeMultidata();
     //请求商品数据
     this.getHomeGoods("pop");
@@ -142,7 +142,7 @@ export default {
       const page = this.goods[type].page + 1;
       getHomeGoods(type, page).then(res => {
         this.goods[type].list.push(...res.data.list);
-        console.log(res.data);
+        //console.log(res.data);
         this.goods[type].page += 1;
         this.$refs.scorll.finishPullUp();
       });
