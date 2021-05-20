@@ -45,17 +45,14 @@
 
       // 3.监听上拉事件
       this.scroll.on('pullingUp', () => {
-        this.$emit('pullingUp');
-        console.log('pull')
+        this.$emit('pullingUp')
       })
       //监听滚动到底部
       if(this.pullLoad){
          this.scroll.on('pullingUp',()=>{
-          this.$emit('pullingUp');
-            console.log('foot')
+          this.$emit('pullingUp')
          })
       }
-      // this.scroll.refresh();
     },
     methods: {
       scrollTo(x, y, time=300) {

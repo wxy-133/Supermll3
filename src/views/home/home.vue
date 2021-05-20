@@ -8,7 +8,7 @@
     class="tabbar-control2" 
     :titles="['流行','新款','精选']" 
     @tabClick="tabClick" 
-    v-show="isTabFixed" />
+    v-show="isTabFixed"></tabBarControl>
     <Scroll
       class="content"
       ref="scorll"
@@ -55,7 +55,8 @@ export default {
       currentType: "pop",
       isBackTopShow: false,
       tabOffsetTop: 0,
-      isTabFixed:false
+      isTabFixed:false,
+      saveY:0
     };
   },
   computed: {},
@@ -73,9 +74,12 @@ export default {
   },
   activated() {
     //监听图片加载
-    const refresh = debounce(this.$refs.scroll.refresh, 500);
-    refresh();
+    console.log(this.$refs.scroll)
+    console.log(this.$refs.tabControl1)
+    const refreshs = debounce(this.$refs.scroll.refresh(), 500);
+    refreshs();
     // this.$refs.scroll.refresh()
+    this.$refs.scroll.scrollTop(0,this.saveY,0)
   },
   created() {
     //请求轮播，推荐数据
@@ -121,7 +125,7 @@ export default {
     },
     loadMore() {
       this.getHomeGoods(this.currentType);
-      console.log("上拉了");
+      //console.log("上拉了");
     },
     swiperImageLoad() {
       this.tabOffsetTop=this.$refs.tabControl2.$el.offsetTop;
@@ -146,6 +150,7 @@ export default {
   },
   deactivated() {
     this.$bus.$off("itemImageLoad");
+    this.saveY=this.$refs.scroll.getScrollY();
   }
 };
 </script>

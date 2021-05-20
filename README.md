@@ -67,4 +67,9 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
    7. 防抖
 ## tabconrol的吸顶效果
    1. 了解滚动到多少有效果 用 offsetTop ,$el获取组件的元素，需监听图片加载完成后加载
-   2. 监听滚动，动态改变样式 
+   2. 监听滚动，动态决定tabbcontrol2是否显示
+## home记录状态的问题
+   1. 让我们的home不要随意销毁 keep-alive
+   2. 让home中内容保存原来的位置
+    + 离开时，保存一个位置信息
+    + 进来时。将位置设置为该位置
