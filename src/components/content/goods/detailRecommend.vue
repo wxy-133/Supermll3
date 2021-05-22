@@ -1,44 +1,31 @@
 <template>
-  <div class="goods-item" @click="itemClick">
-    <img :src="showImage" alt @load="imageLoad" />
-    <div class="goods-info">
-      <p>{{product.title}}</p>
-      <span class="price">{{product.price}}</span>
-      <span class="collect">{{product.cfav}}</span>
-    </div>
+  <div class="recommendgoods">
+    <detailListItem  v-for="item in recommendgoods" :key="item.iid" :product="item"/>
   </div>
 </template>
+
 <script>
+import detailListItem from "./detailListItem";
 export default {
   props: {
-    product: {
-      type: Array,
-      default() {
-        return [];
-      }
+    recommendgoods: {
     }
   },
   data() {
     return {};
   },
-  computed: {
-    showImage() {
-      return this.product.image || this.product.show.img;
-    }
-  },
-  methods: {
-    imageLoad() {
-      this.$bus.$emit("itemImageLoad");
-    },
-    itemClick() {
-      console.log("click");
-      this.$router.push("/detail/" + this.product.iid);
-      // this.$rourer.push({})
-    }
+  components: {
+    detailListItem
   }
 };
 </script>
-<style scoped>
+<style  scoped>
+.recommendgoods {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 2px;
+}
 .goods-item {
   padding-bottom: 40px;
   position: relative;
