@@ -25,7 +25,7 @@ import detailCommentInfo from "./childComps/detailCommentInfo";
 import DetailRecommend from "@/components/content/goods/detailRecommend";
 import scroll from "@/components/common/scroll/Scroll";
 import { getDetail,getRecommend, GoodsInfo, Shop, GoodsParam } from "../../network/detail";
-import { debounce } from "../../common/util.js";
+import { itemListenerMinxin } from "../../common/mixin.js";
 export default {
   name: "detail",
   components: {
@@ -39,6 +39,7 @@ export default {
     DetailRecommend,
     scroll
   },
+  mixins:[itemListenerMinxin],
   data() {
     return {
       iid: null,
@@ -53,11 +54,7 @@ export default {
     };
   },
   mounted() {
-     let newRefresh = debounce(this.$refs.scroll.refresh(), 500);
-     this.detailItemListener=()=>{
-       newRefresh()
-     }
-    this.$bus.$on('itemImageLoad',this.detailItemListener)
+    
   },
   created() {
     this.iid = this.$route.params.iid;

@@ -39,10 +39,11 @@ import homeSwiper from "./childComps/homeSwiper";
 import homeRecommend from "./childComps/homeRecommend";
 import homeFeatureView from "./childComps/homeFeatureView";
 import { getHomeMultidata, getHomeGoods } from "@/network/home";
-import { debounce } from "../../common/util.js";
+import { itemListenerMinxin } from "../../common/mixin.js";
 export default {
   name: "home",
   components: {},
+  mixins:[itemListenerMinxin],
   data() {
     return {
       banners: [],
@@ -88,8 +89,6 @@ export default {
   },
   mounted() {
     // this.tabOffsetTop=$this.$refs.tabOffsetTop.$el.offsetTop;
-    const refreshs = debounce(this.$refs.scroll.refresh(), 500);
-    refreshs();
   },
   methods: {
     //事件监听相关的方法
@@ -148,7 +147,7 @@ export default {
     }
   },
   deactivated() {
-    this.$bus.$off("itemImageLoad");
+    this.$bus.$off("itemImageLoad",detailItemListener);
     this.saveY=this.$refs.scroll.getScrollY();
   }
 };
