@@ -11,7 +11,7 @@
     v-show="isTabFixed"></tabBarControl>
     <Scroll
       class="content"
-      ref="scorll"
+      ref="scroll"
       :probe-type="3"
       @scroll="contentScroll"
       :pull-up-load="true"
@@ -74,9 +74,6 @@ export default {
   },
   activated() {
     //监听图片加载
-
-    const refreshs = debounce(this.$refs.scroll.refresh(), 500);
-    refreshs();
     // this.$refs.scroll.refresh()
     this.$refs.scroll.scrollTo(0,this.saveY,0)
   },
@@ -91,6 +88,8 @@ export default {
   },
   mounted() {
     // this.tabOffsetTop=$this.$refs.tabOffsetTop.$el.offsetTop;
+    const refreshs = debounce(this.$refs.scroll.refresh(), 500);
+    refreshs();
   },
   methods: {
     //事件监听相关的方法
@@ -109,11 +108,11 @@ export default {
           break;
         }
       }
-      this.$refs.tabControl1.currentIndex=indx;
-      this.$refs.tabControl2.currentIndex=indx;
+      this.$refs.tabControl1.currentIndex=index;
+      this.$refs.tabControl2.currentIndex=index;
     },
     backTop() {
-      this.$refs.scorll.scrollTo(0, 0, 500);
+      this.$refs.scroll.scrollTo(0, 0, 500);
     },
     contentScroll(position) {
       //判断我们的backtop是否显示
@@ -144,7 +143,7 @@ export default {
         this.goods[type].list.push(...res.data.list);
         //console.log(res.data);
         this.goods[type].page += 1;
-        this.$refs.scorll.finishPullUp();
+        this.$refs.scroll.finishPullUp();
       });
     }
   },

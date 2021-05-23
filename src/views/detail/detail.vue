@@ -25,6 +25,7 @@ import detailCommentInfo from "./childComps/detailCommentInfo";
 import DetailRecommend from "@/components/content/goods/detailRecommend";
 import scroll from "@/components/common/scroll/Scroll";
 import { getDetail,getRecommend, GoodsInfo, Shop, GoodsParam } from "../../network/detail";
+import { debounce } from "../../common/util.js";
 export default {
   name: "detail",
   components: {
@@ -48,15 +49,17 @@ export default {
       paramInfo:{},
       commentInfo:{},
       recommends: {},
+      detailItemListener:null
     };
   },
-  activated() {
-    console.log(this.$refs);
+  mounted() {
+     let newRefresh = debounce(this.$refs.scroll.refresh(), 500);
+     this.detailItemListener=()=>{
+       newRefresh()
+     }
+    this.$bus.$on('itemImageLoad',this.detailItemListener)
   },
   created() {
-    console.log(this.$refs);
-    console.log(this.$refs.ef);
-    console.log(this.$refs.scroll);
     this.iid = this.$route.params.iid;
     getDetail(this.iid).then(res => {
       //console.log(res);
@@ -80,7 +83,7 @@ export default {
        data.itemParams.info,
         data.itemParams.rule
       );
-       console.log(this.paramInfo);
+       //console.log(this.paramInfo);
       //取出我们的评论信息
       if (data.rate.cRate != 0) {
         this.commentInfo = data.rate.list[0];
@@ -88,9 +91,12 @@ export default {
     });
       //请求推荐数据
     getRecommend().then(res => {
-     console.log(res);
+      //console.log(res);
       this.recommends = res.data.list;
     });
+  },
+  deactivated(){
+    this.$bus.$off('itemImageLoad',this.detailItemListener)
   }
 };
 </script>
