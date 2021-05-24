@@ -86,3 +86,17 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
      - 在图片加载完成后高高度才能获取正确 （created（没有渲染元素） mounted（数据还没有获取到）       $nextTick(图片高度没有计算在内)）
      - 
    7. 购物车功能
+   8. 滚动内容显示标题
+    01.  ``` // if(this.currentIndex!=i&&(i<this.themeTopYs.length-1&&positionY>=this.themeTopYs[i]&&         positionY<this.themeTopYs[i+1])||
+        // (i===this.themeTopYs.length-1&&positionY>this.themeTopYs[i])){
+        //  this.currentIndex=i;
+        //  console.log(this.currentIndex)
+        //  this.$refs.ef.currentIndex=this.currentIndex
+        // } 
+        ``` 
+    02. (hack) MAX_VALUE  this.themeTopYs.push(Number.MAX_VALUE);加入一个最大值
+        ```  if(this.currentIndex!=i&&(positionY>this.themeTopYs[i]&&positionY<this.themeTopYs[i+1])){
+           this.currentIndex=i;
+           this.$refs.ef.currentIndex=this.currentIndex
+        }
+        ``` 

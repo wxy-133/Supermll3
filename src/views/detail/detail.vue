@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div class="detail">
-    <detailNavBar ref="ef" class="detail-nav" @titleClick="titleClick" />
+    <detailNavBar ref="ef" class="detail-nav" @titleClick="titleClick"/>
     <!-- 属性：topImages 传入值：top-images -->
     <scroll
       ref="scroll"
@@ -68,6 +68,7 @@ export default {
       recommends: {},
       themeTopYs: [],
       gethemeTopY: null,
+      currentIndex:null
     };
   },
   created() {
@@ -128,7 +129,8 @@ export default {
       this.themeTopYs.push(this.$refs.params.$el.offsetTop);
       this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
       this.themeTopYs.push(this.$refs.remmend.$el.offsetTop);
-     // console.log(this.themeTopYs);
+      this.themeTopYs.push(Number.MAX_VALUE);
+      //console.log(this.themeTopYs);
     },100);
   },
   methods: {
@@ -140,6 +142,26 @@ export default {
     contentScroll(position) {
       //判断我们的backtop是否显示
       this.isBackTopShow = -position.y > 1000;
+      const positionY=-position.y;
+      //MAX_VALUE
+
+      for(let i=0; i<this.themeTopYs.length-1;i++){
+        // if(positionY>this.themeTopYs[i]&&positionY<this.themeTopYs[i+1]){
+        //   console.log(i)
+        // }
+        // if(this.currentIndex!=i&&(i<this.themeTopYs.length-1&&positionY>=this.themeTopYs[i]&&positionY<this.themeTopYs[i+1])||
+        // (i===this.themeTopYs.length-1&&positionY>this.themeTopYs[i])){
+        //  this.currentIndex=i;
+        //  console.log(this.currentIndex)
+        //  this.$refs.ef.currentIndex=this.currentIndex
+        // }
+        //hack
+        if(this.currentIndex!=i&&(positionY>this.themeTopYs[i]&&positionY<this.themeTopYs[i+1])){
+           this.currentIndex=i;
+           this.$refs.ef.currentIndex=this.currentIndex
+        }
+
+      }
     },
     //监听标题点击
     titleClick(index) {
