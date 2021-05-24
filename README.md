@@ -73,3 +73,8 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
    2. 让home中内容保存原来的位置
     + 离开时，保存一个位置信息
     + 进来时。将位置设置为该位置
+## 详情页 
+   1. 详情页 头部 轮播图
+   2. 详情页 商品信息 商品详情 商品参数 评论信息展示 推荐商品
+   3. 详情页mixin使用
+   4. 详情页滚动bug

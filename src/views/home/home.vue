@@ -54,9 +54,9 @@ export default {
         sell: { page: 0, list: [] }
       },
       currentType: "pop",
-      isBackTopShow: false,
       tabOffsetTop: 0,
-      saveY:0
+      saveY:0,
+      isTabFixed:false,
     };
   },
   computed: {},
@@ -74,7 +74,7 @@ export default {
   },
   activated() {
     //监听图片加载
-    // this.$refs.scroll.refresh()
+    this.$refs.scroll.refresh()
     this.$refs.scroll.scrollTo(0,this.saveY,0)
   },
   created() {
@@ -85,6 +85,8 @@ export default {
     this.getHomeGoods("pop");
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
+    //也可在挂载中执行
+    this.tabClick(0)
   },
   mounted() {
     // this.tabOffsetTop=$this.$refs.tabOffsetTop.$el.offsetTop;
@@ -106,8 +108,11 @@ export default {
           break;
         }
       }
-      this.$refs.tabControl1.currentIndex=index;
-      this.$refs.tabControl2.currentIndex=index;
+      if( this.$refs.tabControl1!==undefined){
+        this.$refs.tabControl1.currentIndex=index;
+         this.$refs.tabControl2.currentIndex=index;    
+      }
+    
     },
     backTop() {
       this.$refs.scroll.scrollTo(0, 0, 500);
@@ -146,6 +151,7 @@ export default {
     }
   },
   deactivated() {
+     this.$bus.$off("itemImageLoad", this.detailItemListener);
     this.saveY=this.$refs.scroll.getScrollY();
   }
 };

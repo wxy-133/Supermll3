@@ -4,13 +4,14 @@ export const itemListenerMinxin = {
         return {
             detailItemListener: null,
             isBackTopShow: false,
-            isTabFixed:false,
+            newRefresh:null
         }
     },
     mounted() {
-        const newRefresh = debounce(this.$refs.scroll.refresh, 500);
+        this.newRefresh = debounce(this.$refs.scroll.refresh, 100);
         this.detailItemListener = () => {
-            newRefresh()
+            this.newRefresh()
+            //console.log('mix')
         }
         this.$bus.$on('itemImageLoad', this.detailItemListener);
     },
@@ -24,8 +25,5 @@ export const itemListenerMinxin = {
                 },delay)
             }
         }
-    },
-    deactivated() {
-        this.$bus.$off("itemImageLoad",this.detailItemListener);
-    },
+    }
 }

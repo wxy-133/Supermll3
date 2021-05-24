@@ -6,7 +6,7 @@
       <detailBanners :topImages="topImages" />
       <detailBaseInfo :goods="goods" />
       <detailShopInfo :shop="shop" />
-      <detailGoodsInfo :detailInfo="detailInfo" />
+      <detailGoodsInfo :detailInfo="detailInfo" @loadImgEvent="loadImgEvent"/>
       <detailParamsInfo :paramInfo="paramInfo" ref="params" />
       <detailCommentInfo :commentInfo="commentInfo" ref="comment" />
       <DetailRecommend :recommendgoods="recommends" ref="remmend" />
@@ -34,6 +34,7 @@ import {
   GoodsParam,
 } from "../../network/detail";
 import { itemListenerMinxin } from "../../common/mixin.js";
+import { debounce } from "../../common/mixin.js";
 export default {
   name: "detail",
   components: {
@@ -59,10 +60,13 @@ export default {
       paramInfo: {},
       commentInfo: {},
       recommends: {},
-      detailItemListener: null,
     };
   },
   methods: {
+    //判断图片加载完成
+    loadImgEvent(){
+      this.newRefresh();
+    },
     backTop() {
       this.$refs.scroll.scrollTo(0, 0, 500);
     },
@@ -72,7 +76,6 @@ export default {
     },
   },
   created() {
-    //
     this.iid = this.$route.params.iid;
     getDetail(this.iid).then((res) => {
       //console.log(res);
