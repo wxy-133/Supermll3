@@ -56,7 +56,6 @@ export default {
       currentType: "pop",
       isBackTopShow: false,
       tabOffsetTop: 0,
-      isTabFixed:false,
       saveY:0
     };
   },
@@ -147,7 +146,6 @@ export default {
     }
   },
   deactivated() {
-    this.$bus.$off("itemImageLoad",detailItemListener);
     this.saveY=this.$refs.scroll.getScrollY();
   }
 };

@@ -2,15 +2,16 @@
 <template>
   <div class="detail">
     <detailNavBar ref="ef" class="detail-nav" />
-    <scroll ref="scroll" class="content">
+    <scroll ref="scroll" class="content" :probe-type="3" @scroll="contentScroll">
       <detailBanners :topImages="topImages" />
       <detailBaseInfo :goods="goods" />
       <detailShopInfo :shop="shop" />
       <detailGoodsInfo :detailInfo="detailInfo" />
       <detailParamsInfo :paramInfo="paramInfo" ref="params" />
-      <detailCommentInfo :commentInfo="commentInfo" ref="comment"/>
+      <detailCommentInfo :commentInfo="commentInfo" ref="comment" />
       <DetailRecommend :recommendgoods="recommends" ref="remmend" />
-    </Scroll>
+    </scroll>
+    <BackTop @click.native="backTop" v-show="isBackTopShow" />
   </div>
 </template>
 
@@ -23,8 +24,15 @@ import detailGoodsInfo from "./childComps/dtailGoodsInfo";
 import detailParamsInfo from "./childComps/detailParamsInfo";
 import detailCommentInfo from "./childComps/detailCommentInfo";
 import DetailRecommend from "@/components/content/goods/detailRecommend";
+import BackTop from "@/components/content/backTop/backTop";
 import scroll from "@/components/common/scroll/Scroll";
-import { getDetail,getRecommend, GoodsInfo, Shop, GoodsParam } from "../../network/detail";
+import {
+  getDetail,
+  getRecommend,
+  GoodsInfo,
+  Shop,
+  GoodsParam,
+} from "../../network/detail";
 import { itemListenerMinxin } from "../../common/mixin.js";
 export default {
   name: "detail",
@@ -37,9 +45,10 @@ export default {
     detailParamsInfo,
     detailCommentInfo,
     DetailRecommend,
-    scroll
+    scroll,
+    BackTop
   },
-  mixins:[itemListenerMinxin],
+  mixins: [itemListenerMinxin],
   data() {
     return {
       iid: null,
@@ -47,18 +56,25 @@ export default {
       goods: {},
       shop: {},
       detailInfo: {},
-      paramInfo:{},
-      commentInfo:{},
+      paramInfo: {},
+      commentInfo: {},
       recommends: {},
-      detailItemListener:null
+      detailItemListener: null,
     };
   },
-  mounted() {
-    
+  methods: {
+    backTop() {
+      this.$refs.scroll.scrollTo(0, 0, 500);
+    },
+    contentScroll(position) {
+      //判断我们的backtop是否显示
+      this.isBackTopShow = -position.y > 1000;
+    },
   },
   created() {
+    //
     this.iid = this.$route.params.iid;
-    getDetail(this.iid).then(res => {
+    getDetail(this.iid).then((res) => {
       //console.log(res);
       //获取顶部轮播数据
       const data = res.result;
@@ -77,24 +93,24 @@ export default {
       // 获取商品参数信息
       // this.paramInfo = data.itemParams;
       this.paramInfo = new GoodsParam(
-       data.itemParams.info,
+        data.itemParams.info,
         data.itemParams.rule
       );
-       //console.log(this.paramInfo);
+      //console.log(this.paramInfo);
       //取出我们的评论信息
       if (data.rate.cRate != 0) {
         this.commentInfo = data.rate.list[0];
       }
     });
-      //请求推荐数据
-    getRecommend().then(res => {
+    //请求推荐数据
+    getRecommend().then((res) => {
       //console.log(res);
       this.recommends = res.data.list;
     });
   },
-  deactivated(){
-    this.$bus.$off('itemImageLoad',this.detailItemListener)
-  }
+  deactivated() {
+    this.$bus.$off("itemImageLoad", this.detailItemListener);
+  },
 };
 </script>
 <style  scoped>
@@ -113,5 +129,6 @@ export default {
 .content {
   background-color: #fff;
   height: calc(100% - 44px - 49px);
+  overflow: hidden;
 }
 </style>
