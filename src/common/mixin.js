@@ -16,14 +16,8 @@ export const itemListenerMinxin = {
         this.$bus.$on('itemImageLoad', this.detailItemListener);
     },
     methods: {
-        debounce(func,delay){
-            let timer=null
-            return function(...args){
-                if(timer) clearTimeout(tinmer)
-                tinmer =setTimeout(()=>{
-                   func.apple(this,args)
-                },delay)
-            }
-        }
+        backTop() {
+            this.$refs.scroll.scrollTo(0, 0, 500);
+          },
     }
 }

@@ -1,12 +1,18 @@
 <!--  -->
 <template>
   <div class="detail">
-    <detailNavBar ref="ef" class="detail-nav" />
-    <scroll ref="scroll" class="content" :probe-type="3" @scroll="contentScroll">
+    <detailNavBar ref="ef" class="detail-nav" @titleClick="titleClick" />
+    <!-- 属性：topImages 传入值：top-images -->
+    <scroll
+      ref="scroll"
+      class="content"
+      :probe-type="3"
+      @scroll="contentScroll"
+    >
       <detailBanners :topImages="topImages" />
       <detailBaseInfo :goods="goods" />
       <detailShopInfo :shop="shop" />
-      <detailGoodsInfo :detailInfo="detailInfo" @loadImgEvent="loadImgEvent"/>
+      <detailGoodsInfo :detailInfo="detailInfo" @loadImgEvent="loadImgEvent" />
       <detailParamsInfo :paramInfo="paramInfo" ref="params" />
       <detailCommentInfo :commentInfo="commentInfo" ref="comment" />
       <DetailRecommend :recommendgoods="recommends" ref="remmend" />
@@ -34,7 +40,7 @@ import {
   GoodsParam,
 } from "../../network/detail";
 import { itemListenerMinxin } from "../../common/mixin.js";
-import { debounce } from "../../common/mixin.js";
+import { debounce } from "../../common/util.js";
 export default {
   name: "detail",
   components: {
@@ -47,7 +53,7 @@ export default {
     detailCommentInfo,
     DetailRecommend,
     scroll,
-    BackTop
+    BackTop,
   },
   mixins: [itemListenerMinxin],
   data() {
@@ -60,20 +66,9 @@ export default {
       paramInfo: {},
       commentInfo: {},
       recommends: {},
+      themeTopYs: [],
+      gethemeTopY: null,
     };
-  },
-  methods: {
-    //判断图片加载完成
-    loadImgEvent(){
-      this.newRefresh();
-    },
-    backTop() {
-      this.$refs.scroll.scrollTo(0, 0, 500);
-    },
-    contentScroll(position) {
-      //判断我们的backtop是否显示
-      this.isBackTopShow = -position.y > 1000;
-    },
   },
   created() {
     this.iid = this.$route.params.iid;
@@ -104,13 +99,57 @@ export default {
       if (data.rate.cRate != 0) {
         this.commentInfo = data.rate.list[0];
       }
+      //01 获取值不对，因为组件没有渲染
+      //   this.themeTopYs = [];
+      //   this.themeTopYs.push(0);
+      //   this.themeTopYs.push(this.$refs.params.$el.offsetTop);
+      //   this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
+      //   this.themeTopYs.push(this.$refs.remmend.$el.offsetTop);
+      //   console.log(this.themeTopYs);
+      //02 $nextTick 获取值不对，因为图片没有加载完成不计算高度
+      // this.$nextTick(() => {
+      //   this.themeTopYs = [];
+      //   this.themeTopYs.push(0);
+      //   this.themeTopYs.push(this.$refs.params.$el.offsetTop);
+      //   this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
+      //   this.themeTopYs.push(this.$refs.remmend.$el.offsetTop);
+      //   console.log(this.themeTopYs);
+      // });
     });
     //请求推荐数据
     getRecommend().then((res) => {
       //console.log(res);
       this.recommends = res.data.list;
     });
+    //给gethemeTopy赋值(进行防抖)
+    this.gethemeTopY = debounce(() => {
+      this.themeTopYs = [];
+      this.themeTopYs.push(0);
+      this.themeTopYs.push(this.$refs.params.$el.offsetTop);
+      this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
+      this.themeTopYs.push(this.$refs.remmend.$el.offsetTop);
+     // console.log(this.themeTopYs);
+    },100);
   },
+  methods: {
+    //判断图片加载完成
+    loadImgEvent() {
+      this.newRefresh();
+      this.gethemeTopY();
+    },
+    contentScroll(position) {
+      //判断我们的backtop是否显示
+      this.isBackTopShow = -position.y > 1000;
+    },
+    //监听标题点击
+    titleClick(index) {
+      //console.log(index);
+      //根据index滚动到对应展示
+      this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 100);
+    },
+  },
+
+  updated() {},
   deactivated() {
     this.$bus.$off("itemImageLoad", this.detailItemListener);
   },

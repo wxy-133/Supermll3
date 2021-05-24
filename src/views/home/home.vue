@@ -114,9 +114,6 @@ export default {
       }
     
     },
-    backTop() {
-      this.$refs.scroll.scrollTo(0, 0, 500);
-    },
     contentScroll(position) {
       //判断我们的backtop是否显示
       this.isBackTopShow = -position.y > 1000

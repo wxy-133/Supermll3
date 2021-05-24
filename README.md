@@ -78,3 +78,11 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
    2. 详情页 商品信息 商品详情 商品参数 评论信息展示 推荐商品
    3. 详情页mixin使用
    4. 详情页滚动bug
+   5. 详情页回到顶部
+   6. 详情页联动效果 
+    + 在detail中监听标题的点击获取index
+    + 滚动到对应的主题
+     - 获取所有主题的offsettop
+     - 在图片加载完成后高高度才能获取正确 （created（没有渲染元素） mounted（数据还没有获取到）       $nextTick(图片高度没有计算在内)）
+     - 
+   7. 购物车功能
