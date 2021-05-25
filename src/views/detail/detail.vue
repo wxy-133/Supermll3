@@ -18,6 +18,7 @@
       <DetailRecommend :recommendgoods="recommends" ref="remmend" />
     </scroll>
     <BackTop @click.native="backTop" v-show="isBackTopShow" />
+    <detailBttomBar/>
   </div>
 </template>
 
@@ -29,6 +30,7 @@ import detailShopInfo from "./childComps/detailShopInfo";
 import detailGoodsInfo from "./childComps/dtailGoodsInfo";
 import detailParamsInfo from "./childComps/detailParamsInfo";
 import detailCommentInfo from "./childComps/detailCommentInfo";
+import detailBttomBar from "./childComps/detailBottomBar";
 import DetailRecommend from "@/components/content/goods/detailRecommend";
 import BackTop from "@/components/content/backTop/backTop";
 import scroll from "@/components/common/scroll/Scroll";
@@ -52,6 +54,7 @@ export default {
     detailParamsInfo,
     detailCommentInfo,
     DetailRecommend,
+    detailBttomBar,
     scroll,
     BackTop,
   },
@@ -160,7 +163,6 @@ export default {
            this.currentIndex=i;
            this.$refs.ef.currentIndex=this.currentIndex
         }
-
       }
     },
     //监听标题点击
