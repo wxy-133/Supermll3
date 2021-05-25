@@ -36,8 +36,8 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
          1. this.goods[type].push(...res.data.list)
          2. this.goods[type].page+=1
 ## 对商品数据进行展示
-   # 封装goodsList组件 props:goods->list[30]
-   # 封装goodsListItem组件 props:goodsItem->遍历
+   1. 封装goodsList组件 props:goods->list[30]
+   2. 封装goodsListItem组件 props:goodsItem->遍历
 ## 对滚动进行重构
    # const bscroll=new BScroll('$refs.name',{pageType:0/1/2/3(只要是滚动)}) bscroll.on('scroll',(positon)=>{})
    # 上拉加载
@@ -100,3 +100,5 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
            this.$refs.ef.currentIndex=this.currentIndex
         }
         ``` 
+   9. 底部工具栏的封装
+   10. 将商品添加到购物车 npm install vuex@3.1.0 --save（安装vuex）

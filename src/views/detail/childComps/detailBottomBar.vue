@@ -33,7 +33,7 @@ export default {
   },
   methods:{
     addToCart(){
-
+       this.$emit('addCart')
     }
   }
 };
@@ -44,21 +44,24 @@ export default {
   height: 49px;
   background-color: var(--color-tint);
   position: relative;
-  bottom: -15px;
-  left: 0;
-  right: 0;
-  z-index: 9999;
-  font-size: 0.65rem;
-  display: flex;
-  background-color: #fff;
-  width: 100%;
-  height: 2.09rem;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    font-size: 0.65rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background-color: #fff;
+    width: 100%;
+    height: auto;
   text-align: center;
   box-shadow: 0 -0.04rem 0.4rem gray;
 }
 .bottom_left {
   display: flex;
   flex: 1;
+  padding: 10px 0;
 }
 
 .bottom_left>div {
@@ -89,7 +92,7 @@ export default {
 
 .bottom_right>div {
   flex: 1;
-  line-height: 2.09rem;
+  line-height: 3rem;
 }
 
 .cart {

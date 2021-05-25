@@ -18,7 +18,7 @@
       <DetailRecommend :recommendgoods="recommends" ref="remmend" />
     </scroll>
     <BackTop @click.native="backTop" v-show="isBackTopShow" />
-    <detailBttomBar/>
+    <detailBttomBar @addCart="addToCart"/>
   </div>
 </template>
 
@@ -171,6 +171,17 @@ export default {
       //根据index滚动到对应展示
       this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 100);
     },
+    //监听购物车点击
+    addToCart(){
+      const product={};
+      product.image=this.topImages[0];
+      product.title=this.goods.title;
+      product.desc=this.goods.desc;
+      product.realPrice=this.goods.realPrice;
+      product.iid=this.iid;
+      //添加到购物车
+      this.$store.commit('addCart',product)
+    }
   },
 
   updated() {},
