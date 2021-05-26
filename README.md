@@ -102,3 +102,6 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
         ``` 
    9. 底部工具栏的封装
    10. 将商品添加到购物车 npm install vuex@3.1.0 --save（安装vuex）
+   11. 使用vuex对项目重构
+## 购物车页面
+   1. 导航 getters ...mapGetters

@@ -1,14 +1,14 @@
 export default {
     addCart(context, payload) {
-        let oldProduct = state.cartList.find(item =>
+        let oldProduct = context.state.cartList.find(item =>
             item.iid === payload.iid
         )
         if (oldProduct) {
             let oldProduct = context.state.cartList[index]
-            context.commit('addCounter',oldProduct)
+            context.commit('addCounter', oldProduct)
         } else {
             payload.count = 1
-            context.commit('addToCart',payload)
+            context.commit('addToCart', payload)
         }
     }
 }

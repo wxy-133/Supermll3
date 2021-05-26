@@ -9,11 +9,11 @@
         <img slot="item-icon" src="../../../assets/img/tabbar/category.svg">
         <div slot="item-text">分类</div>
     </tabBarItem>
-    <tabBarItem path="cart" activeColr="pink">
+    <tabBarItem path="/cart" activeColr="pink">
         <img slot="item-icon" src="../../../assets/img/tabbar/shopcart.svg">
         <div slot="item-text">购物车</div>
     </tabBarItem>
-    <tabBarItem path="profile" activeColr="pink">
+    <tabBarItem path="/profile" activeColr="pink">
         <img slot="item-icon" src="../../../assets/img/tabbar/profile.svg">
         <div slot="item-text">我的</div>
     </tabBarItem>
