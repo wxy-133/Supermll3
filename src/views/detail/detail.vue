@@ -2,6 +2,7 @@
 <template>
   <div class="detail">
     <detailNavBar ref="ef" class="detail-nav" @titleClick="titleClick"/>
+    <h2>{{productList}}</h2>
     <!-- 属性：topImages 传入值：top-images -->
     <scroll
       ref="scroll"
@@ -71,7 +72,8 @@ export default {
       recommends: {},
       themeTopYs: [],
       gethemeTopY: null,
-      currentIndex:null
+      currentIndex:null,
+      productList:{}
     };
   },
   created() {
@@ -180,7 +182,8 @@ export default {
       product.realPrice=this.goods.realPrice;
       product.iid=this.iid;
       //添加到购物车
-      this.$store.commit('addCart',product)
+      this.$store.commit('addCart',product);
+      this.productList=product;
     }
   },
 

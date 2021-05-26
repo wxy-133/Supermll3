@@ -79,7 +79,6 @@ export default {
   },
   created() {
     //请求轮播，推荐数据
-     console.log(this.$refs.scroll)
     this.getHomeMultidata();
     //请求商品数据
     this.getHomeGoods("pop");
