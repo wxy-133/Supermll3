@@ -2,7 +2,7 @@
 <template>
   <div class="detail">
     <detailNavBar ref="ef" class="detail-nav" @titleClick="titleClick"/>
-    <h2>{{productList}}</h2>
+    <!-- <h2>{{productList}}</h2> -->
     <!-- 属性：topImages 传入值：top-images -->
     <scroll
       ref="scroll"

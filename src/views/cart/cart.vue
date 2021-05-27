@@ -1,14 +1,16 @@
 <!--  -->
 <template>
   <div class="cart">
-    <NavBar class="cart-nav">
+    <NavBar class="nav-bar">
     <div slot="center" >购物车({{length}})</div>
     </NavBar>
+      <CartList/>
   </div>
 </template>
 
 <script>
 import NavBar from "@/components/common/navbar/NavBar";
+import CartList from './childComps/CartList'
 import {mapGetters} from 'vuex'
 export default {
   name: "cart",
@@ -17,7 +19,8 @@ export default {
     return {};
   },
   components: {
-    NavBar
+    NavBar,
+    CartList
   },
   computed:{
     //01
@@ -32,15 +35,18 @@ export default {
     // ...mapGetters(['cartlength','cartList']) //cartlength
     //04
     ...mapGetters({
-      length:'cartlength',
+      length:'cartLength',
       list:'cartList'
     })
   }
 };
 </script>
 <style  scoped>
-.cart-nav{
-    background-color: var(--color-tint);
-    color: white;
+.nav-bar {
+  background-color: var(--color-tint);
+  color: white;
+}
+.cart{
+  height: 100vh;
 }
 </style>
