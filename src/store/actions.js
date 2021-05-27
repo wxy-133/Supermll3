@@ -4,7 +4,6 @@ export default {
             item.iid === payload.iid
         )
         if (oldProduct) {
-            let oldProduct = context.state.cartList[index]
             context.commit('addCounter', oldProduct)
         } else {
             payload.count = 1

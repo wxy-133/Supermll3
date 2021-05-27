@@ -1,6 +1,11 @@
 <template>
   <div class="cart_list_item">
-    <div class="item_img">
+      <check-button
+      @click.native="checkClick"
+      :isChecked="item.checked"
+      ref="checkButtonRef"
+    />
+    <div class="item_img"  @click="checkClick">
       <img :src="item.image" alt="img" />
     </div>
     <div class="item_info" @click="infoClick(item)">
@@ -13,7 +18,7 @@
 </template>
 
 <script>
-// import CheckButton from '@/components/content/checkButton/CheckButton'
+import CheckButton from '@/components/content/checkButton/CheckButton'
 export default {
   name: "CartListItem",
   props: {
@@ -29,10 +34,17 @@ export default {
   },
 
   components: {
-    // CheckButton
+    CheckButton
   },
   methods: {
-  
+    checkClick() {
+      //点击取反
+      console.log('check')
+      this.item.checked = !this.item.checked;
+    },
+     infoClick(item) {
+      this.$router.push("/detail/" + item.iid);
+    }
   }
 };
 </script>

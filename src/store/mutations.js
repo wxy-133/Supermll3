@@ -1,6 +1,6 @@
-import {ADD_COUNTER,ADD_TO_CART} from './mutation-types'
+import { ADD_COUNTER, ADD_TO_CART } from './mutation-types'
 export default {
-        // mutations: {
+    // mutations: {
     //     // addCart(state, payload) {
     //     //     //01
     //     //     // let oldProduct = null;
@@ -36,15 +36,16 @@ export default {
     //     //         state.cartList.push(payload)
     //     //     }
     //     // }
-       
-      
+
+
     // },
-     //mutations的唯一目的就是修改state中的状态
-        //mutations中的方法尽可能完成的事件比较单一
-    addCounter(state,payload){
+    //mutations的唯一目的就是修改state中的状态
+    //mutations中的方法尽可能完成的事件比较单一
+    addCounter(state, payload) {
         payload.count++;
-     },
-     addToCart(state,payload){
-         state.cartList.push(payload)
-     }
+    },
+    addToCart(state, payload) {
+        payload.checked = true
+        state.cartList.push(payload)
+    }
 }
