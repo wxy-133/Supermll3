@@ -4,7 +4,9 @@ import router from './router'
 import axios from 'axios'
 import store from './store/index'
 import toast from './components/common/toast'
+import FastClick from 'fastclick'
 Vue.use(toast)
+FastClick.attach(document.body)
 Vue.config.productionTip = false
 Vue.prototype.$bus = new Vue()
     /* eslint-disable no-new */

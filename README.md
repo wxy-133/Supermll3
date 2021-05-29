@@ -122,3 +122,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ## toast封装
    1. 普通方式 创建文件 引入注册使用传参
    2. 插件方式
+## 移动端300ms延迟
+   1. fasticlick >npm install fastclick@1.0.6 --save
+   2. import FastClick from 'fastclick' 导入
+   3. FastClick.attach(document.body)  使用
