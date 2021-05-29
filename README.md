@@ -109,4 +109,6 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
    3. 购物车全选功能
    4. 购物车底部工具栏
    5. 添加购物车弹窗 actions可以返回promise ..mapActions的映射关系
-## toast
+## toast封装
+   1. 普通方式 创建文件 引入注册使用传参
+   2. 插件方式

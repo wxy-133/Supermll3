@@ -32,7 +32,7 @@ export default {
     },
      calcClick(){
       if(!this.isSelectAll){
-         this.$toast.show('请选择要购买的商品',2000)
+        // this.$toast.show('请选择要购买的商品',2000)
       }
     }
   },

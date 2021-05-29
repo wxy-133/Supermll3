@@ -20,6 +20,7 @@
     </scroll>
     <BackTop @click.native="backTop" v-show="isBackTopShow" />
     <detailBttomBar @addCart="addToCart" />
+    <toast :message="message" :isShow="isShow"/>
   </div>
 </template>
 
@@ -35,6 +36,7 @@ import detailBttomBar from "./childComps/detailBottomBar";
 import DetailRecommend from "@/components/content/goods/detailRecommend";
 import BackTop from "@/components/content/backTop/backTop";
 import scroll from "@/components/common/scroll/Scroll";
+import toast from '@/components/common/toast/Toast'
 import {
   getDetail,
   getRecommend,
@@ -60,6 +62,7 @@ export default {
     detailBttomBar,
     scroll,
     BackTop,
+    toast
   },
   mixins: [itemListenerMinxin],
   data() {
@@ -76,6 +79,8 @@ export default {
       gethemeTopY: null,
       currentIndex: null,
       productList: {},
+      message:'ddd',
+      isShow:false
     };
   },
   created() {
@@ -197,8 +202,15 @@ export default {
       // });
       //02 映射写法
       this.addCart(product).then(res=>{
-        console.log(res)
-      })
+        console.log(res);
+        this.isShow=true
+        this.message=res
+        setTimeout(()=>{
+             this.isShow=false;
+             this.message=''
+        },1500)
+      });
+
       // this.productList=product;
     },
   },
