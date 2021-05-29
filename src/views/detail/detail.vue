@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div class="detail">
-    <detailNavBar ref="ef" class="detail-nav" @titleClick="titleClick"/>
+    <detailNavBar ref="ef" class="detail-nav" @titleClick="titleClick" />
     <!-- <h2>{{productList}}</h2> -->
     <!-- 属性：topImages 传入值：top-images -->
     <scroll
@@ -19,7 +19,7 @@
       <DetailRecommend :recommendgoods="recommends" ref="remmend" />
     </scroll>
     <BackTop @click.native="backTop" v-show="isBackTopShow" />
-    <detailBttomBar @addCart="addToCart"/>
+    <detailBttomBar @addCart="addToCart" />
   </div>
 </template>
 
@@ -44,6 +44,8 @@ import {
 } from "../../network/detail";
 import { itemListenerMinxin } from "../../common/mixin.js";
 import { debounce } from "../../common/util.js";
+    // 映射写法
+import { mapActions } from "vuex";
 export default {
   name: "detail",
   components: {
@@ -72,8 +74,8 @@ export default {
       recommends: {},
       themeTopYs: [],
       gethemeTopY: null,
-      currentIndex:null,
-      productList:{}
+      currentIndex: null,
+      productList: {},
     };
   },
   created() {
@@ -136,9 +138,11 @@ export default {
       this.themeTopYs.push(this.$refs.remmend.$el.offsetTop);
       this.themeTopYs.push(Number.MAX_VALUE);
       //console.log(this.themeTopYs);
-    },100);
+    }, 100);
   },
   methods: {
+    // 映射写法
+    ...mapActions(['addCart']),
     //判断图片加载完成
     loadImgEvent() {
       this.newRefresh();
@@ -147,10 +151,10 @@ export default {
     contentScroll(position) {
       //判断我们的backtop是否显示
       this.isBackTopShow = -position.y > 1000;
-      const positionY=-position.y;
+      const positionY = -position.y;
       //MAX_VALUE
 
-      for(let i=0; i<this.themeTopYs.length-1;i++){
+      for (let i = 0; i < this.themeTopYs.length - 1; i++) {
         // if(positionY>this.themeTopYs[i]&&positionY<this.themeTopYs[i+1]){
         //   console.log(i)
         // }
@@ -161,9 +165,13 @@ export default {
         //  this.$refs.ef.currentIndex=this.currentIndex
         // }
         //hack
-        if(this.currentIndex!=i&&(positionY>this.themeTopYs[i]&&positionY<this.themeTopYs[i+1])){
-           this.currentIndex=i;
-           this.$refs.ef.currentIndex=this.currentIndex
+        if (
+          this.currentIndex != i &&
+          positionY > this.themeTopYs[i] &&
+          positionY < this.themeTopYs[i + 1]
+        ) {
+          this.currentIndex = i;
+          this.$refs.ef.currentIndex = this.currentIndex;
         }
       }
     },
@@ -174,18 +182,25 @@ export default {
       this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 100);
     },
     //监听购物车点击
-    addToCart(){
-      const product={};
-      product.image=this.topImages[0];
-      product.title=this.goods.title;
-      product.desc=this.goods.desc;
-      product.realPrice=this.goods.realPrice;
-      product.iid=this.iid;
-      //添加到购物车
+    addToCart() {
+      const product = {};
+      product.image = this.topImages[0];
+      product.title = this.goods.title;
+      product.desc = this.goods.desc;
+      product.realPrice = this.goods.realPrice;
+      product.iid = this.iid;
+      //添加到购物车并判断添加是否成功
       //this.$store.commit('addCart',product);
-      this.$store.dispatch('addCart',product);
-      this.productList=product;
-    }
+      //01 普通写法
+      // this.$store.dispatch("addCart", product).then((res) => {
+      //   console.log(res);
+      // });
+      //02 映射写法
+      this.addCart(product).then(res=>{
+        console.log(res)
+      })
+      // this.productList=product;
+    },
   },
 
   updated() {},

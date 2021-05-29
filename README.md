@@ -105,3 +105,8 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
    11. 使用vuex对项目重构
 ## 购物车页面
    1. 导航 getters ...mapGetters
+   2. 购物车列表展示
+   3. 购物车全选功能
+   4. 购物车底部工具栏
+   5. 添加购物车弹窗 actions可以返回promise ..mapActions的映射关系
+## toast
