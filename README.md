@@ -126,3 +126,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
    1. fasticlick >npm install fastclick@1.0.6 --save
    2. import FastClick from 'fastclick' 导入
    3. FastClick.attach(document.body)  使用
+## 图片懒加载 vue-lazyload
+   1. 用到时在加载,图片需要显示在屏幕时在加载
+   2. 安装npm install vue-lazyload@1.2.6  --save
+   3. 导入import VueLazyLoad from 'vue-lazyload'  安装Vue.use(VueLazyLoad) 修改src->v-lazy
