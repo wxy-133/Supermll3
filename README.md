@@ -1,6 +1,13 @@
 # supermall-a
-
 > A Vue.js project
+>
+> 展示
+>
+> ![image-20210529172841552](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210529172841552.png)
+>
+> ![image-20210529172828036](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210529172828036.png)
+>
+> ![image-20210529172852712](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210529172852712.png)
 
 ## Build Setup
 
@@ -71,6 +78,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ## home记录状态的问题
    1. 让我们的home不要随意销毁 keep-alive
    2. 让home中内容保存原来的位置
+
     + 离开时，保存一个位置信息
     + 进来时。将位置设置为该位置
 ## 详情页 
@@ -80,6 +88,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
    4. 详情页滚动bug
    5. 详情页回到顶部
    6. 详情页联动效果 
+
     + 在detail中监听标题的点击获取index
     + 滚动到对应的主题
      - 获取所有主题的offsettop
@@ -87,19 +96,20 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
      - 
    7. 购物车功能
    8. 滚动内容显示标题
-    01.  ``` // if(this.currentIndex!=i&&(i<this.themeTopYs.length-1&&positionY>=this.themeTopYs[i]&&         positionY<this.themeTopYs[i+1])||
-        // (i===this.themeTopYs.length-1&&positionY>this.themeTopYs[i])){
-        //  this.currentIndex=i;
-        //  console.log(this.currentIndex)
-        //  this.$refs.ef.currentIndex=this.currentIndex
-        // } 
-        ``` 
-    02. (hack) MAX_VALUE  this.themeTopYs.push(Number.MAX_VALUE);加入一个最大值
-        ```  if(this.currentIndex!=i&&(positionY>this.themeTopYs[i]&&positionY<this.themeTopYs[i+1])){
+        1. ``` // if(this.currentIndex!=i&&(i<this.themeTopYs.length-1&&positionY>=this.themeTopYs[i]&&         positionY<this.themeTopYs[i+1])||
+            // (i===this.themeTopYs.length-1&&positionY>this.themeTopYs[i])){
+            //  this.currentIndex=i;
+            //  console.log(this.currentIndex)
+            //  this.$refs.ef.currentIndex=this.currentIndex
+            // } 
+            ```
+    ``` 
+            02. (hack) MAX_VALUE  this.themeTopYs.push(Number.MAX_VALUE);加入一个最大值
+        ​```  if(this.currentIndex!=i&&(positionY>this.themeTopYs[i]&&positionY<this.themeTopYs[i+1])){
            this.currentIndex=i;
            this.$refs.ef.currentIndex=this.currentIndex
         }
-        ``` 
+        ```
    9. 底部工具栏的封装
    10. 将商品添加到购物车 npm install vuex@3.1.0 --save（安装vuex）
    11. 使用vuex对项目重构

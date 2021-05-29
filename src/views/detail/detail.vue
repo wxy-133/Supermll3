@@ -203,12 +203,13 @@ export default {
       //02 映射写法
       this.addCart(product).then(res=>{
         console.log(res);
-        this.isShow=true
-        this.message=res
-        setTimeout(()=>{
-             this.isShow=false;
-             this.message=''
-        },1500)
+        // this.isShow=true
+        // this.message=res
+        // setTimeout(()=>{
+        //      this.isShow=false;
+        //      this.message=''
+        // },1500)
+        this.$toast.Show(res,1500)
       });
 
       // this.productList=product;

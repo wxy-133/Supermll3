@@ -6,20 +6,32 @@
 <script>
 export default {
   props:{
-    message:{
-        type:String,
-        default:'操作成功'
-    },
-    isShow:{
-        type:Boolean,
-        default:false
-    }
+    // message:{
+    //     type:String,
+    //     default:'操作成功'
+    // },
+    // isShow:{
+    //     type:Boolean,
+    //     default:false
+    // }
   },
   data() {
     return {
+        message:'',
+        isShow:false
     };
   },
-  computed: {},
+  methods:{
+      //durarion 默认时间  01 duration=1500 02 duration=duration||2000
+      Show(message,duration=1500){
+          this.isShow=true,
+          this.message=message;
+          setTimeout(()=>{
+            this.isShow=true,
+            this.message=''
+          },duration)
+      }
+  }
 };
 </script>
 <style scoped>
