@@ -130,3 +130,5 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
    1. 用到时在加载,图片需要显示在屏幕时在加载
    2. 安装npm install vue-lazyload@1.2.6  --save
    3. 导入import VueLazyLoad from 'vue-lazyload'  安装Vue.use(VueLazyLoad) 修改src->v-lazy
+## 将px转成vw
+   1. 安装 npm install postcss-px-to-viewport@1.1.0 
